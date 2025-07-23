@@ -39,6 +39,17 @@ export default {
             currentTime: new Date(new Date().toLocaleString("en-US", { timeZone: this.timeZone })),
         }
     },
+    computed: {
+        hours() {
+            return this.currentTime.getHours();
+        },
+        minutes() {
+            return this.currentTime.getMinutes();
+        },
+        seconds() {
+            return this.currentTime.getSeconds();
+        }
+    },
     mounted() {
         this.updateTime();
         setInterval(this.updateTime, 1000);
@@ -47,6 +58,24 @@ export default {
         updateTime() {
             this.currentTime = new Date(new Date().toLocaleString("en-US", { timeZone: this.timeZone }));
         }
+    },
+    created() {
+        console.log('created');
+    },
+    beforeMount() {
+        console.log('beforeMount');
+    },
+    beforeUpdate() {
+        console.log('beforeUpdate');
+    },
+    updated() {
+        console.log('updated');
+    },
+    beforeUnmount() {
+        console.log('beforeUnmount');
+    },
+    unmounted() {
+        console.log('unmounted');
     }
 }
 </script>
@@ -59,27 +88,24 @@ export default {
         <div class="grid auto-cols-max grid-flow-col gap-5 text-center">
             <div :class="[hoursBgColor, hoursTextColor]" class="rounded-box flex flex-col p-2">
                 <span class="countdown font-mono text-5xl">
-                    <span :style="`--value:${currentTime.getHours()}`" aria-live="polite"
-                        :aria-label="currentTime.getHours()">
-                        {{ currentTime.getHours() }}
+                    <span :style="`--value:${hours}`" aria-live="polite" :aria-label="hours">
+                        {{ hours }}
                     </span>
                 </span>
                 hours
             </div>
             <div :class="[minutesBgColor, minutesTextColor]" class="rounded-box flex flex-col p-2">
                 <span class="countdown font-mono text-5xl">
-                    <span :style="`--value:${currentTime.getMinutes()}`" aria-live="polite"
-                        :aria-label="currentTime.getMinutes()">
-                        {{ currentTime.getMinutes() }}
+                    <span :style="`--value:${minutes}`" aria-live="polite" :aria-label="minutes">
+                        {{ minutes }}
                     </span>
                 </span>
                 min
             </div>
-            <div :class="[secondsBgColor, secondsTextColor]" class="rounded-box  flex flex-col p-2">
+            <div :class="[secondsBgColor, secondsTextColor]" class="rounded-box flex flex-col p-2">
                 <span class="countdown font-mono text-5xl">
-                    <span :style="`--value:${currentTime.getSeconds()}`" aria-live="polite"
-                        :aria-label="currentTime.getSeconds()">
-                        {{ currentTime.getSeconds() }}
+                    <span :style="`--value:${seconds}`" aria-live="polite" :aria-label="seconds">
+                        {{ seconds }}
                     </span>
                 </span>
                 sec
